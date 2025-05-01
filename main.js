@@ -15,10 +15,10 @@ if (WebGL.isWebGL2Available()) {
   // document.body.appendChild("info");
 
   const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-  camera.position.set(0, 0, 100);
+  camera.position.set(0, 100, 0);
   camera.lookAt(0, 0, 0);
 
-  // move around
+  // ? move around
   const controls = new OrbitControls(camera, renderer.domElement);
   camera.position.z = 5;
   controls.update();
@@ -92,8 +92,8 @@ if (WebGL.isWebGL2Available()) {
   // ? Animate cube
   function animate() {
     cube.rotation.x += 0.0;
-    cube.rotation.y += 0.01;
-    cube.rotation.z += 0.0;
+    cube.rotation.y += 0.0;
+    cube.rotation.z += 0.01;
 
     line.rotation.x += 0.0;
     line.rotation.y += 0.0;
