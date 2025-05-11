@@ -1,7 +1,13 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+// Trying text
+
+// Not yet
 import { CSS3DRenderer } from 'three/addons/renderers/CSS3DRenderer.js';
+
+// Textgeometry
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 
 import WebGL from 'three/addons/capabilities/WebGL.js';
 
@@ -52,6 +58,53 @@ if (WebGL.isWebGL2Available()) {
   const line = new THREE.Line(geometry, material);
 
   scene.add(line);
+
+  // define & add textgeom
+  // ! not working
+
+  const loader = new FontLoader();
+
+  loader.load('fonts/helvetiker_regular.typeface.json', function (font) {
+
+    const textGeometry = new TextGeometry('Hello three.js!', {
+      font: font,
+      size: 80,
+      depth: 5,
+      curveSegments: 12,
+      bevelEnabled: true,
+      bevelThickness: 10,
+      bevelSize: 8,
+      bevelOffset: 0,
+      bevelSegments: 5
+    });
+
+    // const textMesh1 = new THREE.Mesh(textGeometry, material);
+
+    // textMesh1.position.x = 0;
+    // textMesh1.position.y = 100;
+    // textMesh1.position.z = 0;
+
+    // textMesh1.rotation.x = 0;
+    // textMesh1.rotation.y = Math.PI * 2;
+
+    // scene.add(textMesh1)
+
+
+    textGeometry.computeBoundingBox();
+    const centerOffset = - 0.5 * (textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x);
+
+    const textMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000, specular: 0xffffff });
+
+    const textMesh1 = new THREE.Mesh(textGeometry, textMaterial);
+    textMesh1.position.x = centerOffset;
+    textMesh1.position.y = FLOOR + 67;
+
+    textMesh1.castShadow = true;
+    textMesh1.receiveShadow = true;
+
+    scene.add(textMesh1);
+
+  });
 
 
   const image = new Image()
